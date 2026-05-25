@@ -130,6 +130,15 @@ body {
 .flourish { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--accent); margin: 8px 0 14px; text-transform: none; letter-spacing: 0; }
 .footer strong { color: var(--ink); }
 .refresh-note { margin-top: 18px !important; font-style: italic; font-family: 'Playfair Display', serif; text-transform: none; font-size: 13px; letter-spacing: 0; color: var(--muted); }
+.workshop { grid-column: 1 / -1; padding: 36px clamp(20px, 4vw, 32px) 32px; background: var(--paper); border-bottom: 1px solid var(--rule); text-align: center; }
+.workshop-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); margin-bottom: 6px; }
+.workshop-title { font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; font-size: clamp(22px, 2.6vw, 28px); margin-bottom: 22px; color: var(--ink); }
+.workshop-card { max-width: 720px; margin: 0 auto; text-align: left; background: rgba(255,255,255,0.55); padding: 28px 32px; border: 1px solid var(--rule); border-left: 4px solid var(--accent); }
+.workshop-card h4 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; line-height: 1.25; margin-bottom: 14px; color: var(--ink); }
+.workshop-card > p { font-family: 'Source Serif Pro', serif; font-size: 16.5px; line-height: 1.65; color: var(--ink); margin-bottom: 16px; }
+.workshop-example { background: var(--paper-deep); padding: 16px 20px; border-left: 3px solid var(--ink); margin: 16px 0 6px; }
+.workshop-example-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 8px; }
+.workshop-example-text { font-family: 'Source Serif Pro', serif; font-style: italic; font-size: 15.5px; line-height: 1.6; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -192,7 +201,7 @@ body {
       <p class="summary">Clark covers three things this week: a paper from the Institute for Law &amp; AI on "radical optionality" — giving governments tools they may need if powerful AI starts disrupting the world; a paper Anton Korinek and others published on automating AI research; and feedback evidence pointing toward what Clark calls an "economic singularity" from broad automation diffusion.</p>
       <div class="item-links">
         <a href="https://importai.substack.com/p/import-ai-456-rsi-and-economic-growth" class="source-link" target="_blank">Read at importai.substack.com</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>The "radical optionality" concept — from researchers at the Institute for Law &amp; AI — argues that governments should now invest in capabilities they may not need today but will need if transformative AI starts to massively disrupt economic life. The aim isn't regulation per se, it's keeping democratic governments in a position to make good decisions later. Clark frames this as a more sober alternative to the binary "regulate now / never regulate" debate.</p>
@@ -221,7 +230,7 @@ body {
       <p class="summary">Simon Taylor's data point of the week: Meta engineers consumed 60 trillion AI tokens in a single month, while Anthropic has compressed product cycles from months to days. Yet a parallel data set finds that nearly 90% of firms report no measurable productivity impact from AI deployment. The piece argues the difference is operating model, not model access.</p>
       <div class="item-links">
         <a href="https://www.fintechbrainfood.com/" class="source-link" target="_blank">Read at fintechbrainfood.com</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>Taylor's framing: at the frontier, AI is compounding. Meta's 60-trillion-token-per-month rate is a 4x increase over Q4 2025. Anthropic's internal product velocity has reportedly moved from quarterly releases to weekly. The gap between frontier and average is widening — not closing.</p>
@@ -250,7 +259,7 @@ body {
       <p class="summary">Levine unpacks a KKR transaction in which the firm bought back private-credit positions on its own portfolio companies. The mechanics aren't new, but the scale is — KKR is now both the LBO sponsor and a meaningful holder of the credit on its own deals. Levine notes the structural implication: integrated sponsors compress spreads for unaligned credit lenders.</p>
       <div class="item-links">
         <a href="https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine" class="source-link" target="_blank">Read at bloomberg.com</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>The Levine column covers three things in his usual sprawling way — Virginia voting-rights resolutions, an OpenAI tender, and the KKR private-credit buyback. The KKR section is the one that matters for us. KKR has built up an integrated stack: LBO equity, mezzanine, senior credit, and now an in-house buyback facility for the credit on its own deals. They can effectively re-price their own debt internally.</p>
@@ -279,7 +288,7 @@ body {
       <p class="summary">Bloomberg reports that the Al Kharaitiyat, a tanker carrying Qatari LNG, successfully transited the Strait of Hormuz on 10 May — the first such export since the start of the Iran War. Heatmap's morning briefing also covers a 100°F heat wave in the US Southwest, Williams Companies breaking ground on a new New York pipeline, and Trump-era hydroelectric station permitting extensions worth 2,600 MW.</p>
       <div class="item-links">
         <a href="https://heatmap.news/am" class="source-link" target="_blank">Read at heatmap.news/am</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>The Hormuz transit is the headline. Since the start of the Iran War, Qatari LNG — which accounts for roughly 20% of global LNG supply — has been routed via the longer trans-UAE pipeline or simply held. The successful tanker passage signals either a tactical pause in hostilities or a credible enough security arrangement that Qatar is willing to risk the ship and its cargo. Either way, LNG markets will tighten less sharply than the bear case assumed.</p>
@@ -308,7 +317,7 @@ body {
       <p class="summary">Evans's weekly note focuses on how Salesforce's Agentforce-in-Slack integration is reshaping how enterprise software is bought. The pattern he describes: customers who already pay Salesforce stop buying point-solution SaaS, because Agentforce can stitch the workflow itself. He also covers OpenAI's competitive headwinds, a shift in US AI policy, and Amazon's logistics expansion.</p>
       <div class="item-links">
         <a href="https://www.ben-evans.com/newsletter" class="source-link" target="_blank">Read at ben-evans.com</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>Evans's argument: Agentforce in Slack is not a new feature — it's a new buying pattern. When an enterprise IT team can stitch together the workflow with their existing Salesforce + Slack stack, they don't buy the point-solution SaaS that previously sat in the gap. The mid-market vertical SaaS layer is the most exposed.</p>
@@ -337,7 +346,7 @@ body {
       <p class="summary">McCormick's keynote at The Mountain offsite (now published as a transcript to 265k Not Boring subscribers) builds out a framework he calls "Riding the Leopard": capital allocation in regimes where exponential change makes traditional pattern-matching dangerous. The leopard is the regime. You can't tame it. You can ride it if you size your conviction correctly and pick the right hand-holds.</p>
       <div class="item-links">
         <a href="https://www.notboring.co/p/riding-the-leopard" class="source-link" target="_blank">Read at notboring.co</a>
-        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+        <button class="read-full-link" onclick="toggleFull(this)">Spock's take</button>
       </div>
       <div class="full-content">
         <p>The framework has three parts. First, accept the regime — exponential changes in technology, geopolitics, and capital flow are not transitory. Second, pattern-matching from prior cycles is actively dangerous because the regime is non-stationary; the patterns won't repeat. Third, size your conviction — high conviction with proper position sizing beats certainty with no allocation discipline.</p>
@@ -363,17 +372,41 @@ body {
       <h3>Annual &amp; Occasional Letters</h3>
       <div class="watchlist-grid">
         <div class="watchlist-item"><a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank">Berkshire — Buffett</a><span class="status">Feb ✓ · next Feb 2027</span></div>
-        <div class="watchlist-item"><a href="https://pershingsquareholdings.com/company-reports/" target="_blank">Pershing Square — Ackman</a><span class="status due">Q1 due</span></div>
+        <div class="watchlist-item"><a href="https://www.pershingsquareholdings.com/financials/regular-reports/" target="_blank">Pershing Square — Ackman</a><span class="status due">Q1 due</span></div>
         <div class="watchlist-item"><a href="https://www.oaktreecapital.com/insights/memos" target="_blank">Oaktree — Howard Marks</a><span class="status">8 days ago</span></div>
-        <div class="watchlist-item"><a href="https://chamath.substack.com" target="_blank">Social Capital — Chamath</a><span class="status">Feb ✓</span></div>
-        <div class="watchlist-item"><a href="https://www.jpmorganchase.com/ir/annual-report" target="_blank">JPMorgan — Dimon</a><span class="status new">Apr ✓</span></div>
-        <div class="watchlist-item"><a href="https://www.blackrock.com/corporate/investor-relations/larry-fink-annual-chairmans-letter" target="_blank">BlackRock — Fink</a><span class="status">Jan ✓</span></div>
+        <div class="watchlist-item"><a href="https://chamath.substack.com/p/2025-annual-letter" target="_blank">Social Capital — Chamath</a><span class="status new">2025 letter ✓</span></div>
+        <div class="watchlist-item"><a href="https://www.jpmorganchase.com/ir/annual-report/2025/ar-ceo-letters" target="_blank">JPMorgan — Dimon</a><span class="status new">Apr ✓</span></div>
+        <div class="watchlist-item"><a href="https://www.blackrock.com/corporate/investor-relations/larry-fink-annual-chairmans-letter" target="_blank">BlackRock — Fink</a><span class="status">Mar ✓</span></div>
         <div class="watchlist-item"><a href="https://www.bondcap.com" target="_blank">BOND Capital — Meeker</a><span class="status">No new</span></div>
-        <div class="watchlist-item"><a href="https://www.aboutamazon.com/news/leadership-letters" target="_blank">Day One Fund — Bezos</a><span class="status">No new</span></div>
-        <div class="watchlist-item"><a href="https://blogs.nvidia.com/blog/category/leadership/" target="_blank">NVIDIA — Huang</a><span class="status due">Computex 1 Jun</span></div>
+        <div class="watchlist-item"><a href="https://www.aboutamazon.com/news/leadership-letters" target="_blank">Amazon — Bezos archive</a><span class="status">No new</span></div>
+        <div class="watchlist-item"><a href="https://blogs.nvidia.com/blog/author/jen-hsun-huang/" target="_blank">NVIDIA — Huang</a><span class="status due">Computex 1 Jun</span></div>
         <div class="watchlist-item"><a href="https://www.thirdpoint.com" target="_blank">Third Point — Loeb</a><span class="status due">Q1 due</span></div>
-        <div class="watchlist-item"><a href="https://www.valuewalk.com/category/david-einhorn/" target="_blank">Greenlight — Einhorn</a><span class="status new">Q1 live</span></div>
+        <div class="watchlist-item"><a href="https://hedgefundalpha.com/investor-letters/greenlight-capital-q1-letter/" target="_blank">Greenlight — Einhorn</a><span class="status new">Q1 live</span></div>
       </div>
+    </section>
+
+    <section class="workshop">
+      <div class="workshop-kicker">From the Workshop</div>
+      <h3 class="workshop-title">Today's Tip · AI craft for the partners</h3>
+      <article class="workshop-card">
+        <h4>Tell Claude who you are — once</h4>
+        <p>Most people retype their context at the start of every chat. Stop. In Claude.ai, go to <strong>Settings → Personalisation → Custom Instructions</strong> and write one paragraph: who you are, what you work on, and how you want responses written. Every conversation then starts with Claude already knowing. Saves a minute per chat — and Claude's first answer is sharper because it isn't guessing your role.</p>
+        <div class="workshop-example">
+          <div class="workshop-example-label">Example — paste into Custom Instructions, then edit</div>
+          <p class="workshop-example-text">"I'm a partner at Chronos Capital, a Singapore-based PE firm focused on African fintech and emerging-market infrastructure. Portfolio includes TymeBank, Optasia, rain, Crossfin, OfferZen. Write in concise British English. Lead with conclusions, support with evidence. Avoid hedging language and bullet-point lists unless I ask for them."</p>
+        </div>
+        <div class="thumbs" data-item="tip">
+          <span class="thumbs-label">Useful for the partners?</span>
+          <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+          <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+        </div>
+        <div class="reason-input">
+          <div class="reason-prompt">Was the level right? Too basic, too advanced, wrong topic?</div>
+          <textarea placeholder="e.g. 'level is right' or 'too basic — they already do this' or 'more advanced tips please'"></textarea>
+          <button onclick="submitReason(this)">Submit</button>
+        </div>
+        <div class="thanks">Logged.</div>
+      </article>
     </section>
 
   </main>
@@ -425,7 +458,7 @@ function toggleFull(btn) {
   const full = item.querySelector('.full-content');
   full.classList.toggle('show');
   btn.classList.toggle('expanded');
-  btn.textContent = btn.classList.contains('expanded') ? 'Collapse' : 'Read full';
+  btn.textContent = btn.classList.contains('expanded') ? 'Collapse' : "Spock's take";
 }
 function toggleSubmit(btn) {
   const section = btn.closest('.submit-find');
