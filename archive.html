@@ -22,7 +22,7 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif P
 .subtitle { font-family: 'Playfair Display', serif; font-style: italic; color: var(--muted); font-size: clamp(13px, 1.4vw, 16px); }
 .archive-intro { padding: 26px 0 22px; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; color: var(--muted); font-size: 16px; border-bottom: 1px solid var(--rule); }
 .archive-list { padding: 8px 0; }
-.archive-entry { display: grid; grid-template-columns: 120px 200px 1fr; gap: 18px; padding: 20px 8px; border-bottom: 1px dotted var(--rule); text-decoration: none; color: var(--ink); align-items: baseline; transition: background 0.15s; }
+.archive-entry { display: grid; grid-template-columns: 120px 200px 1fr; gap: 18px; padding: 20px 8px; border-bottom: 1px dotted var(--rule); text-decoration: none; color: var(--ink); align-items: baseline; }
 .archive-entry:hover { background: rgba(107, 31, 43, 0.04); }
 @media (max-width: 600px) { .archive-entry { grid-template-columns: 1fr; gap: 4px; } }
 .ae-issue { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -47,6 +47,12 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif P
   <div class="archive-intro">"Calibration sprint in progress. New editions Mon–Fri."</div>
   <main class="archive-list">
 
+    <a href="2026-05-13.html" class="archive-entry">
+      <span class="ae-issue">Issue 003</span>
+      <span class="ae-date">Wed 13 May 2026</span>
+      <span class="ae-desc">OpenAI deployment shift. Anthropic-xAI co-opetition. Africa's deeply local products. EIA 10.5M bpd shut in. Cerebras IPO temperature check.</span>
+    </a>
+
     <a href="2026-05-12.html" class="archive-entry">
       <span class="ae-issue">Issue 002</span>
       <span class="ae-date">Tue 12 May 2026</span>
@@ -63,7 +69,7 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif P
   <footer class="footer">
     <div class="flourish">— · —</div>
     <p><strong>The Chronos Dispatch</strong></p>
-    <p>2 issues · calibration sprint underway</p>
+    <p>3 issues · calibration sprint underway</p>
   </footer>
 </div>
 </body>
