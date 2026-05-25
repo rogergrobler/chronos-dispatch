@@ -27,27 +27,32 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif P
 .editors-note { border-bottom: 1px solid var(--rule); padding: 26px 0 28px; text-align: center; max-width: 700px; margin: 0 auto; }
 .editors-note .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); margin-bottom: 10px; }
 .editors-note p { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(17px, 2.1vw, 21px); color: var(--ink); line-height: 1.5; }
-.yesterday { padding: 30px clamp(16px, 3vw, 28px); background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2)); border-bottom: 1px solid var(--rule); }
-.yesterday .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; text-align: center; color: var(--accent); margin-bottom: 6px; }
-.yesterday h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; font-size: clamp(22px, 2.6vw, 28px); margin-bottom: 6px; text-align: center; color: var(--ink); }
-.yesterday-intro { text-align: center; font-family: 'Source Serif Pro', serif; font-style: italic; color: var(--muted); font-size: 14px; margin-bottom: 22px; }
-.thread { border-top: 1px dotted var(--rule); padding: 18px 0; }
-.thread:first-of-type { border-top: none; padding-top: 6px; }
-.thread-header { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
-.thread-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 17px; color: var(--ink); line-height: 1.3; flex: 1 1 auto; }
-.thread-votes { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; flex: 0 0 auto; white-space: nowrap; }
-.comments { padding: 4px 0 4px 14px; border-left: 2px solid var(--accent); }
-.comment { margin-bottom: 14px; }
-.comment:last-child { margin-bottom: 0; }
-.comment-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-.initials { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--accent); color: var(--paper); font-size: 9px; font-weight: 600; border-radius: 50%; }
-.comment-body { font-family: 'Source Serif Pro', serif; font-style: italic; font-size: 15px; line-height: 1.55; color: var(--ink); }
-.reply-btn { margin-top: 14px; background: transparent; border: 1px solid var(--rule); padding: 6px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); cursor: pointer; border-radius: 2px; }
-.reply-btn:hover { border-color: var(--ink); color: var(--ink); }
-.reply-form { display: none; margin-top: 12px; }
-.reply-form.show { display: block; }
-.reply-form textarea { width: 100%; border: 1px solid var(--rule); padding: 10px; background: rgba(255,255,255,0.5); font-family: 'Source Serif Pro', serif; font-size: 14px; font-style: italic; resize: vertical; min-height: 60px; color: var(--ink); }
-.reply-form button { margin-top: 8px; background: var(--ink); color: var(--paper); border: none; padding: 7px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; border-radius: 2px; }
+.yesterday { padding: 0; border-bottom: 1px solid var(--rule); background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2)); }
+.yesterday-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 16px clamp(16px, 3vw, 28px); background: transparent; border: none; cursor: pointer; text-align: left; font-family: 'Source Serif Pro', serif; color: var(--ink); transition: background 0.15s; }
+.yesterday-toggle:hover { background: rgba(255,255,255,0.4); }
+.yesterday-summary { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.yesterday-summary .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); }
+.yesterday-summary .thread-count { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--muted); }
+.toggle-icon { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); transition: transform 0.2s; }
+.yesterday.expanded .toggle-icon { transform: rotate(180deg); }
+.yesterday-content { display: none; padding: 4px clamp(16px, 3vw, 28px) 24px; }
+.yesterday.expanded .yesterday-content { display: block; }
+.threads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 6px; }
+@media (max-width: 760px) { .threads-grid { grid-template-columns: 1fr; } }
+.thread-card { background: rgba(255,255,255,0.6); border: 1px solid var(--rule); border-left: 3px solid var(--thumb-up); padding: 12px 14px; }
+.thread-card.down { border-left-color: var(--thumb-down); }
+.thread-card-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.thread-card-vote { font-size: 13px; flex: 0 0 auto; }
+.thread-card-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; line-height: 1.3; color: var(--ink); }
+.thread-card-comment { font-family: 'Source Serif Pro', serif; font-style: italic; font-size: 13px; line-height: 1.5; color: var(--ink); padding: 6px 10px; background: var(--paper-deep); border-left: 2px solid var(--accent); margin-bottom: 6px; }
+.thread-card-spock { font-family: 'Source Serif Pro', serif; font-style: italic; font-size: 12px; line-height: 1.5; color: var(--muted); margin-bottom: 8px; }
+.thread-card-spock::before { content: "Spock: "; font-weight: 600; font-style: normal; text-transform: uppercase; font-size: 9px; letter-spacing: 0.14em; color: var(--accent); margin-right: 4px; }
+.reply-btn-small { background: transparent; border: 1px solid var(--rule); padding: 4px 10px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); cursor: pointer; border-radius: 2px; }
+.reply-btn-small:hover { border-color: var(--ink); color: var(--ink); }
+.reply-form-small { display: none; margin-top: 8px; }
+.reply-form-small.show { display: block; }
+.reply-form-small textarea { width: 100%; border: 1px solid var(--rule); padding: 6px 8px; background: rgba(255,255,255,0.5); font-family: 'Source Serif Pro', serif; font-size: 13px; font-style: italic; resize: vertical; min-height: 50px; color: var(--ink); }
+.reply-form-small button { margin-top: 6px; background: var(--ink); color: var(--paper); border: none; padding: 5px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; border-radius: 2px; }
 .submit-find { padding: 22px clamp(16px, 3vw, 28px); background: var(--paper-deep); border-bottom: 1px solid var(--rule); text-align: center; }
 .submit-find .prompt-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .submit-find .prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--ink); }
@@ -153,65 +158,65 @@ body { background: var(--paper); color: var(--ink); font-family: 'Source Serif P
   </section>
 
   <section class="yesterday">
-    <div class="kicker">Yesterday's Conversation</div>
-    <h3>Letters to the Editor</h3>
-    <p class="yesterday-intro">Three threads carried over from Issue 002. Spock has updated the writing rules.</p>
+    <button class="yesterday-toggle" onclick="toggleYesterday(this)">
+      <div class="yesterday-summary">
+        <span class="kicker">Yesterday's Conversation</span>
+        <span class="thread-count">6 threads · 4 👍 · 2 👎 · click to expand</span>
+      </div>
+      <span class="toggle-icon">▼</span>
+    </button>
+    <div class="yesterday-content">
+      <div class="threads-grid">
 
-    <div class="thread">
-      <div class="thread-header">
-        <div class="thread-title">TymeBank named in FT Africa Fastest-Growing list</div>
-        <div class="thread-votes">1 👍 (with edit)</div>
-      </div>
-      <div class="comments">
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">RG</span> Roger Grobler · Tue 12 May</div>
-          <p class="comment-body">"It is the right news to surface. However, this write up here is not warranted. Don't want this kind of commentary: 'Suggest: forward this to TymeBank IR team... revisit Thndr... track M-KOPA's energy-finance overlap...'"</p>
+        <div class="thread-card">
+          <div class="thread-card-header"><span class="thread-card-vote">👍</span><span class="thread-card-title">TymeBank named in FT Africa list</span></div>
+          <div class="thread-card-comment">"It is the right news to surface. However, this write up here is not warranted. Don't want this kind of commentary: 'Suggest: forward this to TymeBank IR team... revisit Thndr...'"</div>
+          <div class="thread-card-spock">Rule locked. No Action/Suggest/Recommend language in Spock's takes from Issue 003 on.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
         </div>
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">SP</span> Spock · auto-note</div>
-          <p class="comment-body">"Rule locked. From Issue 003 on, no Action/Suggest/Recommend language in Spock's takes. Analysis only. Partners decide what to do."</p>
-        </div>
-      </div>
-      <button class="reply-btn" onclick="openReply(this)">+ Add to thread</button>
-      <div class="reply-form"><textarea placeholder="Add your view on this thread..."></textarea><button onclick="postReply(this)">Post</button></div>
-    </div>
 
-    <div class="thread">
-      <div class="thread-header">
-        <div class="thread-title">Sequoia: "2026 is AGI"</div>
-        <div class="thread-votes">1 👍</div>
-      </div>
-      <div class="comments">
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">RG</span> Roger Grobler · Tue 12 May</div>
-          <p class="comment-body">"Really worthwhile surfacing views that tests our thesis. Very useful. Again: Do not give actions."</p>
+        <div class="thread-card down">
+          <div class="thread-card-header"><span class="thread-card-vote">👎</span><span class="thread-card-title">Africa Tech Summit London showcase</span></div>
+          <div class="thread-card-comment">"Who is attending some summit is not news and not relevant to us. Also, don't suggest Actions."</div>
+          <div class="thread-card-spock">Logged. Dropping summit attendance and networking-event coverage. No actions.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
         </div>
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">SP</span> Spock · auto-note</div>
-          <p class="comment-body">"Up-weighting thesis-test items further. Today's OpenAI deployment story and Anthropic-xAI deal both filed under this rubric."</p>
-        </div>
-      </div>
-      <button class="reply-btn" onclick="openReply(this)">+ Add to thread</button>
-      <div class="reply-form"><textarea placeholder="Add your view on this thread..."></textarea><button onclick="postReply(this)">Post</button></div>
-    </div>
 
-    <div class="thread">
-      <div class="thread-header">
-        <div class="thread-title">Eversource refuses data-centre development</div>
-        <div class="thread-votes">1 👎</div>
-      </div>
-      <div class="comments">
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">RG</span> Roger Grobler · Tue 12 May</div>
-          <p class="comment-body">"The conclusions here for rain is way too much of a leap of logic, and also geographically irrelevant."</p>
+        <div class="thread-card">
+          <div class="thread-card-header"><span class="thread-card-vote">👍</span><span class="thread-card-title">Sequoia $7B AI fund + barbell</span></div>
+          <div class="thread-card-comment">"Useful to know where the big VCs are betting. Do not suggest Actions."</div>
+          <div class="thread-card-spock">Up-weighting "where major VCs are betting" framing. No actions.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
         </div>
-        <div class="comment">
-          <div class="comment-meta"><span class="initials">SP</span> Spock · auto-note</div>
-          <p class="comment-body">"Rule locked. No forced portfolio pull-through when the logical chain crosses geographies or requires multiple jumps. Surface the story; let the partners draw the line if there is one."</p>
+
+        <div class="thread-card">
+          <div class="thread-card-header"><span class="thread-card-vote">👍</span><span class="thread-card-title">Sequoia: "2026 is AGI"</span></div>
+          <div class="thread-card-comment">"Really worthwhile surfacing views that tests our thesis. Very useful. Again: Do not give actions."</div>
+          <div class="thread-card-spock">Up-weighting thesis-test items. Today's OpenAI deployment and Anthropic-xAI stories filed under this rubric.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
         </div>
+
+        <div class="thread-card down">
+          <div class="thread-card-header"><span class="thread-card-vote">👎</span><span class="thread-card-title">Eversource refuses data centres</span></div>
+          <div class="thread-card-comment">"The conclusions here for rain is way too much of a leap of logic, and also geographically irrelevant."</div>
+          <div class="thread-card-spock">Rule locked. No forced portfolio pull-through across geographies or multi-jump logic chains.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
+        </div>
+
+        <div class="thread-card">
+          <div class="thread-card-header"><span class="thread-card-vote">👍</span><span class="thread-card-title">MSCI EM index concentration</span></div>
+          <div class="thread-card-comment">"Interesting news. But don't do actions."</div>
+          <div class="thread-card-spock">Logged. Chart/index-composition framing kept. No actions.</div>
+          <button class="reply-btn-small" onclick="openReplySmall(this)">+ Reply</button>
+          <div class="reply-form-small"><textarea placeholder="Add your view..."></textarea><button onclick="postReplySmall(this)">Post</button></div>
+        </div>
+
       </div>
-      <button class="reply-btn" onclick="openReply(this)">+ Add to thread</button>
-      <div class="reply-form"><textarea placeholder="Add your view on this thread..."></textarea><button onclick="postReply(this)">Post</button></div>
     </div>
   </section>
 
@@ -552,23 +557,27 @@ function submitFind() {
   sendToWorker({ item_type: 'submission', item_id: 'find-' + Date.now(), source: 'Partner submission', headline: url, vote: 'none', commentary: '', submitted_url: url, submission_take: take });
 }
 
-function openReply(btn) {
+function toggleYesterday(btn) {
+  btn.parentElement.classList.toggle('expanded');
+}
+
+function openReplySmall(btn) {
   const form = btn.nextElementSibling;
   form.classList.toggle('show');
   if (form.classList.contains('show')) form.querySelector('textarea').focus();
 }
 
-function postReply(btn) {
+function postReplySmall(btn) {
   const form = btn.parentElement;
   const textarea = form.querySelector('textarea');
   const text = textarea.value.trim();
   if (!text) return;
-  const thread = form.parentElement;
-  const comments = thread.querySelector('.comments');
-  const newComment = document.createElement('div');
-  newComment.className = 'comment';
-  newComment.innerHTML = '<div class="comment-meta"><span class="initials">RG</span> Roger Grobler · just now</div><p class="comment-body">"' + text.replace(/"/g, '&quot;') + '"</p>';
-  comments.appendChild(newComment);
+  const card = form.closest('.thread-card');
+  const reply = document.createElement('div');
+  reply.className = 'thread-card-comment';
+  reply.style.borderLeftColor = 'var(--thumb-up)';
+  reply.textContent = '"' + text + '" — RG, just now';
+  card.insertBefore(reply, btn);
   textarea.value = '';
   form.classList.remove('show');
 }
