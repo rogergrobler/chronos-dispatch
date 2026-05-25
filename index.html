@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Chronos Dispatch · Issue 001 · Mon 11 May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F6F1E7;
+  --paper-deep: #EDE5D2;
+  --ink: #14110E;
+  --accent: #6B1F2B;
+  --accent-soft: rgba(107, 31, 43, 0.08);
+  --rule: #BFB3A0;
+  --rule-soft: #D9CFBC;
+  --muted: #6C604F;
+  --thumb-up: #2D5F3F;
+  --thumb-down: #8B2A2A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #2A2620; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: 'Source Serif Pro', Georgia, serif;
+  font-size: 17px; line-height: 1.65;
+  padding: 18px 14px 40px;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.012) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.015) 0%, transparent 40%);
+}
+.paper {
+  max-width: 1040px; margin: 0 auto; background: var(--paper);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1);
+  padding: 32px clamp(20px, 4vw, 48px);
+}
+.archive-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 0 14px; border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 14px; font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); flex-wrap: wrap; gap: 8px;
+}
+.archive-nav a { color: var(--muted); text-decoration: none; border-bottom: 1px solid transparent; padding: 4px 0; transition: color 0.15s, border-color 0.15s; }
+.archive-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.archive-nav .current { color: var(--ink); font-weight: 600; }
+.archive-nav .disabled { color: var(--rule); pointer-events: none; }
+.masthead { text-align: center; border-top: 4px double var(--ink); border-bottom: 4px double var(--ink); padding: 26px 0 22px; position: relative; }
+.title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(42px, 9vw, 86px); letter-spacing: -0.025em; line-height: 0.95; margin-bottom: 10px; }
+.title em { font-style: italic; font-weight: 700; }
+.subtitle { font-family: 'Playfair Display', serif; font-style: italic; color: var(--muted); font-size: clamp(13px, 1.4vw, 16px); margin-bottom: 16px; }
+.dateline { display: flex; justify-content: center; align-items: center; border-top: 1px solid var(--rule); padding-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink); max-width: 760px; margin: 0 auto; flex-wrap: wrap; gap: 14px; }
+.dateline .issue { font-weight: 600; color: var(--accent); font-size: 12px; letter-spacing: 0.2em; }
+.dateline .sep { color: var(--rule); }
+.editors-note { border-bottom: 1px solid var(--rule); padding: 26px 0 28px; text-align: center; max-width: 700px; margin: 0 auto; }
+.editors-note .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); margin-bottom: 10px; }
+.editors-note p { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(17px, 2.1vw, 21px); color: var(--ink); line-height: 1.5; }
+.welcome { padding: 30px clamp(16px, 3vw, 28px); background: linear-gradient(to bottom, rgba(255,255,255,0.55), rgba(255,255,255,0.25)); border-bottom: 1px solid var(--rule); text-align: center; }
+.welcome .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); margin-bottom: 8px; }
+.welcome h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; font-size: clamp(22px, 2.6vw, 28px); margin-bottom: 10px; color: var(--ink); }
+.welcome p { font-family: 'Source Serif Pro', serif; font-size: 15.5px; line-height: 1.65; color: var(--ink); max-width: 640px; margin: 0 auto 10px; }
+.welcome p.tagline { font-style: italic; color: var(--muted); font-size: 14px; }
+.submit-find { padding: 22px clamp(16px, 3vw, 28px); background: var(--paper-deep); border-bottom: 1px solid var(--rule); text-align: center; }
+.submit-find .prompt-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.submit-find .prompt { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--ink); }
+.submit-find .submit-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; background: var(--accent); color: var(--paper); border: none; padding: 9px 18px; border-radius: 2px; cursor: pointer; transition: background 0.15s; }
+.submit-find .submit-toggle:hover { background: var(--ink); }
+.submit-form { display: none; max-width: 560px; margin: 18px auto 0; text-align: left; }
+.submit-form.show { display: block; }
+.submit-form label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 5px; margin-top: 8px; }
+.submit-form input, .submit-form textarea { width: 100%; border: 1px solid var(--rule); padding: 10px 12px; background: rgba(255,255,255,0.65); font-family: 'Source Serif Pro', serif; font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+.submit-form textarea { font-style: italic; resize: vertical; min-height: 70px; }
+.submit-form .submit-post { margin-top: 4px; background: var(--ink); color: var(--paper); border: none; padding: 9px 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; border-radius: 2px; }
+.submit-form .submit-post:hover { background: var(--accent); }
+.submit-confirm { display: none; margin-top: 14px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--thumb-up); }
+.submit-confirm.show { display: block; }
+.items { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule-soft); }
+@media (max-width: 760px) { .items { grid-template-columns: 1fr; } }
+.item { padding: 28px 22px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); position: relative; }
+.item:nth-child(2n) { border-right: none; }
+@media (max-width: 760px) { .item { border-right: none; padding: 26px 2px; } }
+.item .section-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+.item .why { font-family: 'Source Serif Pro', serif; font-style: italic; color: var(--accent); font-size: 14.5px; line-height: 1.5; padding: 10px 12px; background: var(--accent-soft); border-left: 3px solid var(--accent); margin-bottom: 16px; }
+.item .why::before { content: "Why this matters"; font-weight: 600; font-style: normal; text-transform: uppercase; font-size: 9.5px; letter-spacing: 0.18em; color: var(--accent); display: block; margin-bottom: 5px; font-family: 'IBM Plex Mono', monospace; }
+.item h2 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(22px, 2.4vw, 26px); line-height: 1.18; margin-bottom: 10px; color: var(--ink); }
+.item .byline { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 14px; }
+.item .summary { font-size: 16px; color: var(--ink); line-height: 1.65; margin-bottom: 14px; }
+.item-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+.item .source-link { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+.item .source-link::after { content: " →"; }
+.read-full-link { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); cursor: pointer; background: none; border: none; padding: 0 0 2px; border-bottom: 1px dotted var(--muted); transition: color 0.15s, border-color 0.15s; }
+.read-full-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.read-full-link::before { content: "↓ "; }
+.read-full-link.expanded::before { content: "↑ "; }
+.full-content { display: none; margin-top: 18px; padding: 20px 22px; background: rgba(255,255,255,0.45); border-left: 3px solid var(--ink); font-family: 'Source Serif Pro', serif; font-size: 16px; line-height: 1.75; color: var(--ink); }
+.full-content.show { display: block; }
+.full-content p { margin-bottom: 14px; }
+.full-content p:last-child { margin-bottom: 0; }
+.full-content .pullquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 19px; line-height: 1.45; color: var(--accent); padding: 12px 16px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 14px 0; }
+.thumbs { display: flex; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px dotted var(--rule); align-items: center; flex-wrap: wrap; }
+.thumbs-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); margin-right: 4px; }
+.thumb-btn { font-family: 'IBM Plex Mono', monospace; background: transparent; border: 1px solid var(--rule); padding: 7px 12px; border-radius: 2px; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; color: var(--muted); transition: all 0.15s ease; }
+.thumb-btn:hover { border-color: var(--ink); color: var(--ink); }
+.thumb-btn.up:hover, .thumb-btn.up.active { background: var(--thumb-up); color: var(--paper); border-color: var(--thumb-up); }
+.thumb-btn.down:hover, .thumb-btn.down.active { background: var(--thumb-down); color: var(--paper); border-color: var(--thumb-down); }
+.thumb-icon { font-size: 13px; }
+.reason-input { display: none; margin-top: 12px; width: 100%; }
+.reason-input.show { display: block; }
+.reason-prompt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 6px; }
+.reason-input textarea { width: 100%; border: 1px solid var(--rule); padding: 10px; background: rgba(255,255,255,0.5); font-family: 'Source Serif Pro', serif; font-size: 14px; resize: vertical; min-height: 64px; color: var(--ink); font-style: italic; }
+.reason-input button { margin-top: 8px; background: var(--ink); color: var(--paper); border: none; padding: 7px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; border-radius: 2px; }
+.reason-input button:hover { background: var(--accent); }
+.thanks { display: none; margin-top: 8px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: var(--thumb-up); }
+.thanks.show { display: block; }
+.stream-b { padding: 28px 26px; border-bottom: 3px double var(--ink); border-top: 3px double var(--ink); background: var(--paper-deep); grid-column: 1 / -1; }
+.stream-b .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.24em; text-align: center; color: var(--accent); margin-bottom: 6px; }
+.stream-b h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(22px, 2.6vw, 28px); margin-bottom: 18px; text-align: center; color: var(--ink); }
+.watchlist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 4px 28px; font-size: 13px; }
+.watchlist-item { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px dotted var(--rule); gap: 8px; }
+.watchlist-item a { font-family: 'Source Serif Pro', serif; font-size: 14.5px; color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; flex: 1 1 auto; }
+.watchlist-item a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.watchlist-item a::after { content: " ↗"; font-size: 11px; color: var(--muted); }
+.watchlist-item .status { font-family: 'IBM Plex Mono', monospace; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; flex: 0 0 auto; }
+.watchlist-item .status.due { color: var(--accent); font-weight: 600; }
+.watchlist-item .status.new { color: var(--thumb-up); font-weight: 600; }
+.footer { text-align: center; padding: 32px 16px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); border-top: 1px solid var(--rule-soft); }
+.footer p { margin: 4px 0; }
+.flourish { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--accent); margin: 8px 0 14px; text-transform: none; letter-spacing: 0; }
+.footer strong { color: var(--ink); }
+.refresh-note { margin-top: 18px !important; font-style: italic; font-family: 'Playfair Display', serif; text-transform: none; font-size: 13px; letter-spacing: 0; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="paper">
+
+  <nav class="archive-nav">
+    <span class="disabled">← First edition</span>
+    <span class="current">Issue 001 · Mon 11 May 2026</span>
+    <a href="archive.html" title="All editions archive">Archive →</a>
+  </nav>
+
+  <header class="masthead">
+    <h1 class="title">The Chronos <em>Dispatch</em></h1>
+    <div class="subtitle">Curated intelligence for the partners of Chronos Capital</div>
+    <div class="dateline">
+      <span class="issue">Issue No. 001</span>
+      <span class="sep">·</span>
+      <span>Monday, 11 May 2026</span>
+      <span class="sep">·</span>
+      <span>Stellenbosch · Singapore</span>
+    </div>
+  </header>
+
+  <section class="editors-note">
+    <div class="kicker">Today's Read</div>
+    <p>"Six items cleared the bar. AI policy is no longer abstract — it's now an input to portfolio strategy. KKR's private-credit reflex tells you what the LPs are doing. Qatari LNG is back through Hormuz."</p>
+  </section>
+
+  <section class="welcome">
+    <div class="kicker">Founding Issue</div>
+    <h3>Welcome to the Calibration Sprint</h3>
+    <p>This is Issue 001 of The Chronos Dispatch — the start of a two-week calibration sprint with only Roger reading. Ten editions, Mon–Fri, dated 11–22 May. Each one reflects what Spock learned from your feedback on the last.</p>
+    <p>Use the thumbs and commentary on each item. Submit Finds when you spot them. Partners join from Issue 011 on Monday, 25 May.</p>
+    <p class="tagline">Your votes today shape tomorrow's bar.</p>
+  </section>
+
+  <section class="submit-find">
+    <div class="prompt-row">
+      <span class="prompt">Spotted something worth surfacing?</span>
+      <button class="submit-toggle" onclick="toggleSubmit(this)">Submit a Find →</button>
+    </div>
+    <div class="submit-form">
+      <label>Link — article, tweet, paper, anything</label>
+      <input type="url" placeholder="https://..." id="submit-url">
+      <label>Your take — why does this matter to us?</label>
+      <textarea placeholder="Two lines is plenty. Spock will use your framing as the 'why this matters' line." id="submit-take"></textarea>
+      <button class="submit-post" onclick="submitFind()">Submit to Spock</button>
+    </div>
+    <div class="submit-confirm">Thanks RG. Spock will consider this for tomorrow's edition — tagged "Submitted by Roger".</div>
+  </section>
+
+  <main class="items">
+
+    <article class="item">
+      <div class="section-tag">AI Frontier · Import AI</div>
+      <div class="why">AI policy positioning is now a real input to portfolio strategy. For Vertice MedTech and any operator deploying AI in regulated settings, "radical optionality" reframes how governments may intervene — and how operators should prepare.</div>
+      <h2>Import AI 456: 'Radical optionality' for AI regulation, and an emerging economic singularity</h2>
+      <div class="byline">Jack Clark · Mon 11 May 2026 · Issue 456</div>
+      <p class="summary">Clark covers three things this week: a paper from the Institute for Law &amp; AI on "radical optionality" — giving governments tools they may need if powerful AI starts disrupting the world; a paper Anton Korinek and others published on automating AI research; and feedback evidence pointing toward what Clark calls an "economic singularity" from broad automation diffusion.</p>
+      <div class="item-links">
+        <a href="https://importai.substack.com/p/import-ai-456-rsi-and-economic-growth" class="source-link" target="_blank">Read at importai.substack.com</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>The "radical optionality" concept — from researchers at the Institute for Law &amp; AI — argues that governments should now invest in capabilities they may not need today but will need if transformative AI starts to massively disrupt economic life. The aim isn't regulation per se, it's keeping democratic governments in a position to make good decisions later. Clark frames this as a more sober alternative to the binary "regulate now / never regulate" debate.</p>
+        <p>The economic-singularity piece is more speculative but worth attention. Clark synthesises a set of recent papers suggesting that broad diffusion of automation technologies (not just AI in narrow tasks) could drive a feedback loop where productivity gains compound faster than human institutions can absorb them. The "RSI" in the title — recursive self-improvement of the economy, not just of AI systems.</p>
+        <div class="pullquote">"We may be reaching a point where the right policy question is not 'how do we govern AI' but 'how do we govern an economy that compounds faster than our institutions update'." — Jack Clark</div>
+        <p>For Chronos: Vertice MedTech needs a clear stance on radical optionality — what does the team do if European regulators suddenly demand model-card disclosures or training-data attestation? TymeBank should be thinking about the same question for credit decisioning. The cost of preparing for these scenarios now is far lower than reacting later.</p>
+      </div>
+      <div class="thumbs" data-item="1">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'love the policy angle' or 'too speculative for Monday morning'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <article class="item">
+      <div class="section-tag">Fintech · Fintech Brainfood</div>
+      <div class="why">Direct read for TymeBank, Crossfin and OfferZen. The disconnect between AI capability and AI productivity gains is about operating model, not access. Operating-model discipline is the next moat — and the next IC question we should be asking portcos.</div>
+      <h2>Meta burned 60 trillion tokens in 30 days — and 90% of firms still see no productivity gain</h2>
+      <div class="byline">Simon Taylor · Sun 10 May 2026</div>
+      <p class="summary">Simon Taylor's data point of the week: Meta engineers consumed 60 trillion AI tokens in a single month, while Anthropic has compressed product cycles from months to days. Yet a parallel data set finds that nearly 90% of firms report no measurable productivity impact from AI deployment. The piece argues the difference is operating model, not model access.</p>
+      <div class="item-links">
+        <a href="https://www.fintechbrainfood.com/" class="source-link" target="_blank">Read at fintechbrainfood.com</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>Taylor's framing: at the frontier, AI is compounding. Meta's 60-trillion-token-per-month rate is a 4x increase over Q4 2025. Anthropic's internal product velocity has reportedly moved from quarterly releases to weekly. The gap between frontier and average is widening — not closing.</p>
+        <p>The 90% figure comes from a McKinsey panel of mid-cap and large enterprises. Most respondents have AI tools deployed (chat assistants, code copilots, retrieval systems), but cannot point to a P&amp;L line where AI moved the number. Taylor's read: the operating model is the missing layer. Companies have access to the same models as Meta — but they haven't restructured the workflows around them.</p>
+        <div class="pullquote">"Access to AI is now a commodity. The moat is in the operating model around the AI." — Simon Taylor</div>
+        <p>For Chronos portcos: this is the next IC-level question to ask each portfolio CEO. Not "are you using AI" — everyone is. The question is "have you restructured a workflow such that AI changes the unit economics". TymeBank's onboarding flow is the obvious test case. Crossfin's underwriting pipeline. OfferZen's matching loop.</p>
+      </div>
+      <div class="thumbs" data-item="2">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'the IC framing is exactly right' or 'too long, give me the headline'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <article class="item">
+      <div class="section-tag">Investing & Deal-Making · Money Stuff</div>
+      <div class="why">Validates the private-credit thesis but with a twist that changes our Lima positioning. The biggest PE sponsors are now both originator and credit-holder — which compresses spreads for everyone else. Our mid-market gap-play is still right, but pricing assumptions need a haircut.</div>
+      <h2>KKR's private-credit buyback: when the LBO sponsor becomes the credit holder</h2>
+      <div class="byline">Matt Levine · Mon 11 May 2026</div>
+      <p class="summary">Levine unpacks a KKR transaction in which the firm bought back private-credit positions on its own portfolio companies. The mechanics aren't new, but the scale is — KKR is now both the LBO sponsor and a meaningful holder of the credit on its own deals. Levine notes the structural implication: integrated sponsors compress spreads for unaligned credit lenders.</p>
+      <div class="item-links">
+        <a href="https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine" class="source-link" target="_blank">Read at bloomberg.com</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>The Levine column covers three things in his usual sprawling way — Virginia voting-rights resolutions, an OpenAI tender, and the KKR private-credit buyback. The KKR section is the one that matters for us. KKR has built up an integrated stack: LBO equity, mezzanine, senior credit, and now an in-house buyback facility for the credit on its own deals. They can effectively re-price their own debt internally.</p>
+        <p>Levine's argument is that this isn't conflicted (everyone knew it was the same sponsor) — it's structural. The bigger integrated sponsors can capture spreads end-to-end, while mid-market and unaligned credit funds get squeezed because they can only play the credit side. The natural result is spread compression across the private-credit market.</p>
+        <div class="pullquote">"Sponsors who can warehouse, originate, and buy back their own credit have just turned private credit into a closed-loop game." — Matt Levine</div>
+        <p>For Chronos and Lima: our positioning as a mid-market structured-credit player in deals too small for the integrated giants is still valid. But the spread we can charge in our zone is going to track downward as the KKRs of the world keep capturing the bigger end. Revise the Lima IRR targets down 100-150bps. Worth a follow-up call with Brendan in Singapore.</p>
+      </div>
+      <div class="thumbs" data-item="3">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'the Lima implication is gold' or 'less Bloomberg without the link working'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <article class="item">
+      <div class="section-tag">Energy · Heatmap News</div>
+      <div class="why">Energy security is back to first-order. Qatari LNG clearing Hormuz means the post-Iran-War order is settling. rain's infrastructure thesis is more durable than it looked six months ago, and the comms/energy convergence story we've been tracking gets stronger.</div>
+      <h2>Qatari LNG clears Strait of Hormuz — first export since the Iran War</h2>
+      <div class="byline">Heatmap AM · Mon 11 May 2026</div>
+      <p class="summary">Bloomberg reports that the Al Kharaitiyat, a tanker carrying Qatari LNG, successfully transited the Strait of Hormuz on 10 May — the first such export since the start of the Iran War. Heatmap's morning briefing also covers a 100°F heat wave in the US Southwest, Williams Companies breaking ground on a new New York pipeline, and Trump-era hydroelectric station permitting extensions worth 2,600 MW.</p>
+      <div class="item-links">
+        <a href="https://heatmap.news/am" class="source-link" target="_blank">Read at heatmap.news/am</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>The Hormuz transit is the headline. Since the start of the Iran War, Qatari LNG — which accounts for roughly 20% of global LNG supply — has been routed via the longer trans-UAE pipeline or simply held. The successful tanker passage signals either a tactical pause in hostilities or a credible enough security arrangement that Qatar is willing to risk the ship and its cargo. Either way, LNG markets will tighten less sharply than the bear case assumed.</p>
+        <p>The secondary stories are domestic US energy infrastructure. Williams broke ground on a new gas pipeline expansion in upstate New York after years of state-level resistance, and Enbridge is planning to extend the Algonquin line. The federal hydroelectric permitting extension covers ~36 stations stranded since 2020. The directional read: the US is finally treating gas + hydro as base-load complement to renewables, not as competition.</p>
+        <div class="pullquote">"Energy security is back to being a first-order variable in capital allocation, not a tail risk." — Heatmap editorial</div>
+        <p>For Chronos: rain's tower-energy infrastructure thesis benefits in two ways. First, the underlying energy story is one where reliable on-site power matters more than at any time since 2007. Second, the same security calculus that's playing out in LNG flows plays out at the network-edge level — operators want power independence from grids that may be unreliable for geopolitical reasons. Push to rain board to revisit the storage/genset capex profile.</p>
+      </div>
+      <div class="thumbs" data-item="4">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'love the rain pull-through' or 'too much US-focused energy'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <article class="item">
+      <div class="section-tag">AI &amp; Tech Strategy · Benedict Evans</div>
+      <div class="why">Agent platforms (Agentforce, etc.) are eating SaaS faster than expected. Vertical-SaaS portcos need a clear "we are the agent, not the app" answer within two quarters — including Vertice MedTech and the SaaS plays in Crossfin's pipeline. This is the M&amp;A trigger we've been watching for.</div>
+      <h2>Benedict Evans: Why Agentforce changes the SaaS map</h2>
+      <div class="byline">Benedict Evans · Tue 12 May 2026</div>
+      <p class="summary">Evans's weekly note focuses on how Salesforce's Agentforce-in-Slack integration is reshaping how enterprise software is bought. The pattern he describes: customers who already pay Salesforce stop buying point-solution SaaS, because Agentforce can stitch the workflow itself. He also covers OpenAI's competitive headwinds, a shift in US AI policy, and Amazon's logistics expansion.</p>
+      <div class="item-links">
+        <a href="https://www.ben-evans.com/newsletter" class="source-link" target="_blank">Read at ben-evans.com</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>Evans's argument: Agentforce in Slack is not a new feature — it's a new buying pattern. When an enterprise IT team can stitch together the workflow with their existing Salesforce + Slack stack, they don't buy the point-solution SaaS that previously sat in the gap. The mid-market vertical SaaS layer is the most exposed.</p>
+        <p>His OpenAI section notes that GPT-5.1 launch metrics suggest the consumer market is saturating — gains are now coming from enterprise contracts where the buyer is IT, not the end user. The US policy shift he flags is the new Treasury guidance allowing semiconductor and AI model exports to a wider list of countries under tighter dual-use controls. Amazon logistics is expanding into India and Indonesia.</p>
+        <div class="pullquote">"The vertical-SaaS playbook of 2020–2024 is now an M&amp;A target list for 2026–2027." — Benedict Evans</div>
+        <p>For Chronos: the M&amp;A trigger framing is the one to act on. Across the portfolio and the deal pipeline, every vertical-SaaS thesis now needs a clear answer to "we are the agent, not the app". Vertice MedTech: are they the medical-imaging agent inside Epic/Cerner, or just a point-solution? OfferZen: are they the developer-hiring agent inside Workday, or just a job board? Push to next IC.</p>
+      </div>
+      <div class="thumbs" data-item="5">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'the agent-not-the-app framing is sharp' or 'less Salesforce coverage'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <article class="item">
+      <div class="section-tag">Operator Craft · Not Boring</div>
+      <div class="why">Packy's playbook for capital allocators in volatile regimes. The "riding the leopard" framing is the right mental model for IC discipline right now — we're in a regime where being right matters less than position-sizing your conviction. Worth 15 minutes at the next partner sitting.</div>
+      <h2>Packy McCormick at The Mountain: 'Riding the Leopard'</h2>
+      <div class="byline">Packy McCormick · Wed 6 May 2026</div>
+      <p class="summary">McCormick's keynote at The Mountain offsite (now published as a transcript to 265k Not Boring subscribers) builds out a framework he calls "Riding the Leopard": capital allocation in regimes where exponential change makes traditional pattern-matching dangerous. The leopard is the regime. You can't tame it. You can ride it if you size your conviction correctly and pick the right hand-holds.</p>
+      <div class="item-links">
+        <a href="https://www.notboring.co/p/riding-the-leopard" class="source-link" target="_blank">Read at notboring.co</a>
+        <button class="read-full-link" onclick="toggleFull(this)">Read full</button>
+      </div>
+      <div class="full-content">
+        <p>The framework has three parts. First, accept the regime — exponential changes in technology, geopolitics, and capital flow are not transitory. Second, pattern-matching from prior cycles is actively dangerous because the regime is non-stationary; the patterns won't repeat. Third, size your conviction — high conviction with proper position sizing beats certainty with no allocation discipline.</p>
+        <p>McCormick walks through three case studies: a16z's positioning on crypto through the 2022 winter, Sequoia's evolution from venture to multi-stage, and his own Not Boring portfolio's concentration moves through 2024-25. The thread across all three: when you're right, lean in harder than feels comfortable; when the regime tells you you're wrong, exit before you'd traditionally exit.</p>
+        <div class="pullquote">"You can't tame a leopard. You can ride it — but only if you let go of the reins from the last horse you rode." — Packy McCormick</div>
+        <p>For Chronos: this maps onto the IC discipline question we've been working on. Our last six committed deals — would we have leaned in harder if we trusted the regime read? Or did we hedge conviction with position size in a way that capped the upside? Worth running through the gate-three exercise at next IC sitting with this framing.</p>
+      </div>
+      <div class="thumbs" data-item="6">
+        <span class="thumbs-label">Train Spock:</span>
+        <button class="thumb-btn up" onclick="vote(this, 'up')"><span class="thumb-icon">👍</span> More like this</button>
+        <button class="thumb-btn down" onclick="vote(this, 'down')"><span class="thumb-icon">👎</span> Not for us</button>
+      </div>
+      <div class="reason-input">
+        <div class="reason-prompt">Tell Spock more — what worked, or what to drop?</div>
+        <textarea placeholder="e.g. 'right framing for the partner sitting' or 'less Packy worship'"></textarea>
+        <button onclick="submitReason(this)">Submit</button>
+      </div>
+      <div class="thanks">Logged.</div>
+    </article>
+
+    <section class="stream-b">
+      <div class="kicker">From the Watchlist</div>
+      <h3>Annual &amp; Occasional Letters</h3>
+      <div class="watchlist-grid">
+        <div class="watchlist-item"><a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank">Berkshire — Buffett</a><span class="status">Feb ✓ · next Feb 2027</span></div>
+        <div class="watchlist-item"><a href="https://pershingsquareholdings.com/company-reports/" target="_blank">Pershing Square — Ackman</a><span class="status due">Q1 due</span></div>
+        <div class="watchlist-item"><a href="https://www.oaktreecapital.com/insights/memos" target="_blank">Oaktree — Howard Marks</a><span class="status">8 days ago</span></div>
+        <div class="watchlist-item"><a href="https://chamath.substack.com" target="_blank">Social Capital — Chamath</a><span class="status">Feb ✓</span></div>
+        <div class="watchlist-item"><a href="https://www.jpmorganchase.com/ir/annual-report" target="_blank">JPMorgan — Dimon</a><span class="status new">Apr ✓</span></div>
+        <div class="watchlist-item"><a href="https://www.blackrock.com/corporate/investor-relations/larry-fink-annual-chairmans-letter" target="_blank">BlackRock — Fink</a><span class="status">Jan ✓</span></div>
+        <div class="watchlist-item"><a href="https://www.bondcap.com" target="_blank">BOND Capital — Meeker</a><span class="status">No new</span></div>
+        <div class="watchlist-item"><a href="https://www.aboutamazon.com/news/leadership-letters" target="_blank">Day One Fund — Bezos</a><span class="status">No new</span></div>
+        <div class="watchlist-item"><a href="https://blogs.nvidia.com/blog/category/leadership/" target="_blank">NVIDIA — Huang</a><span class="status due">Computex 1 Jun</span></div>
+        <div class="watchlist-item"><a href="https://www.thirdpoint.com" target="_blank">Third Point — Loeb</a><span class="status due">Q1 due</span></div>
+        <div class="watchlist-item"><a href="https://www.valuewalk.com/category/david-einhorn/" target="_blank">Greenlight — Einhorn</a><span class="status new">Q1 live</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="flourish">— · —</div>
+    <p><strong>The Chronos Dispatch</strong></p>
+    <p>Issue 001 · Monday, 11 May 2026</p>
+    <p style="margin-top: 10px;">Curated by Spock · 6 items cleared the bar · 21 sources scanned</p>
+    <p class="refresh-note">Refresh tomorrow morning. Your thumbs train the next edition.</p>
+  </footer>
+
+</div>
+
+<script>
+function vote(btn, type) {
+  const thumbs = btn.parentElement;
+  const item = thumbs.parentElement;
+  const reasonBox = item.querySelector('.reason-input');
+  const reasonPrompt = reasonBox.querySelector('.reason-prompt');
+  const textarea = reasonBox.querySelector('textarea');
+  const thanks = item.querySelector('.thanks');
+  thumbs.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  reasonBox.classList.add('show');
+  thanks.classList.remove('show');
+  reasonBox.dataset.voteType = type;
+  if (type === 'up') {
+    reasonPrompt.textContent = 'Tell Spock what worked — source, framing, depth, why-this-matters?';
+    textarea.placeholder = 'e.g. "love the why-this-matters line on this" or "more from this source please"';
+  } else {
+    reasonPrompt.textContent = 'Tell Spock what to drop — source, theme, framing?';
+    textarea.placeholder = 'e.g. "too technical for the digest" or "skip this kind of item"';
+  }
+}
+function submitReason(btn) {
+  const reasonBox = btn.parentElement;
+  const voteType = reasonBox.dataset.voteType || 'down';
+  const item = reasonBox.parentElement;
+  const thanks = item.querySelector('.thanks');
+  reasonBox.classList.remove('show');
+  thanks.classList.add('show');
+  thanks.textContent = voteType === 'up'
+    ? 'Logged. Spock will weight this up — and remember why.'
+    : 'Logged. Spock will drop this kind of item.';
+}
+function toggleFull(btn) {
+  const item = btn.closest('.item');
+  const full = item.querySelector('.full-content');
+  full.classList.toggle('show');
+  btn.classList.toggle('expanded');
+  btn.textContent = btn.classList.contains('expanded') ? 'Collapse' : 'Read full';
+}
+function toggleSubmit(btn) {
+  const section = btn.closest('.submit-find');
+  const form = section.querySelector('.submit-form');
+  const confirm = section.querySelector('.submit-confirm');
+  confirm.classList.remove('show');
+  form.classList.toggle('show');
+  if (form.classList.contains('show')) {
+    form.querySelector('input').focus();
+  }
+}
+function submitFind() {
+  const section = document.querySelector('.submit-find');
+  const form = section.querySelector('.submit-form');
+  const confirm = section.querySelector('.submit-confirm');
+  const url = document.getElementById('submit-url').value.trim();
+  if (!url) {
+    document.getElementById('submit-url').focus();
+    return;
+  }
+  form.classList.remove('show');
+  confirm.classList.add('show');
+  document.getElementById('submit-url').value = '';
+  document.getElementById('submit-take').value = '';
+}
+</script>
+
+</body>
+</html>
