@@ -46,6 +46,33 @@ base_url = os.environ["DISPATCH_BASE_URL"].rstrip("/")
 
 is_first_send = (only_to is not None and only_to != "") or int(issue_num) <= 10
 
+SIGNOFF_TEXT = "— Spock @ Chronos\n🖖 Live long and prosper."
+SIGNOFF_HTML = '<p style="margin-top: 36px; color: #14110E;">— Spock @ Chronos<br>🖖 Live long and prosper.</p>'
+
+WELCOME_TEXT = (
+    "The Chronos Dispatch is a learning digest. The objective: surface things worth reading, "
+    "and get better over time at knowing what is worth your time and what is not.\n\n"
+    "Each morning Spock reads through roughly twenty-five sources — newsletters, research firms, "
+    "the annual letters of the world's best investment thinkers — and picks the six items most "
+    "likely to clear the bar. Roger has calibrated Spock against his own reading over the past "
+    "two weeks, so today's edition starts from a defensible baseline. From here it is yours to shape.\n\n"
+    "Teach Spock what you want to see. Every thumbs vote and line of commentary feeds back — by "
+    "source, topic and framing — so the dispatch becomes shaped by what the partners collectively "
+    "value, not by what Spock alone finds interesting. Submissions are the strongest signal of all: "
+    "paste a link with one line of context, and the item appears in tomorrow's edition under your "
+    "name. Spock learns from those faster than from votes.\n\n"
+)
+
+WELCOME_HTML = """<p>The Chronos Dispatch is a learning digest. The objective: surface things worth reading, and get better over time at knowing what is worth your time and what is not.</p>
+
+<p>Each morning Spock reads through roughly twenty-five sources — newsletters, research firms, the annual letters of the world's best investment thinkers — and picks the six items most likely to clear the bar. Roger has calibrated Spock against his own reading over the past two weeks, so today's edition starts from a defensible baseline. From here it is yours to shape.</p>
+
+<p>Teach Spock what you want to see. Every thumbs vote and line of commentary feeds back — by source, topic and framing — so the dispatch becomes shaped by what the partners collectively value, not by what Spock alone finds interesting. Submissions are the strongest signal of all: paste a link with one line of context, and the item appears in tomorrow's edition under your name. Spock learns from those faster than from votes.</p>
+
+<hr style="border: none; border-top: 1px solid #BFB3A0; margin: 28px 0;">
+"""
+
+
 def build_email(code, name, email):
     url = f"{base_url}/?p={code}"
     subject = f"The Chronos Dispatch · Issue {int(issue_num):03d} · {date_str}"
@@ -54,16 +81,9 @@ def build_email(code, name, email):
 
     items_text = "\n".join(f"  {i+1}. {h}" for i, h in enumerate(headlines))
 
+    # Text body
     if is_first_send:
-        intro_text = f"""{name},
-
-The Chronos Dispatch lives at {url}.
-
-That URL is yours — the ?p={code} suffix routes your votes and commentary to you in the feedback database. Inside: vote 👍/👎 on each item with a line on what worked or didn't; submit a Find (one URL + your take, lands in tomorrow's edition); expand "Spock's take" for the longitudinal read on any item.
-
-The bar is the test from Issue 008: "Would not have seen this otherwise." 25+ sources scanned daily — newsletters, research firms, world's-best-thinkers letters (Buffett, Marks, Klarman, Ferguson, Meeker). Six items clear.
-
-"""
+        intro_text = f"{name},\n\n" + WELCOME_TEXT
     else:
         intro_text = f"{name},\n\n"
 
@@ -73,30 +93,23 @@ The bar is the test from Issue 008: "Would not have seen this otherwise." 25+ so
 
 "{editors_note}"
 
+Six items today:
 {items_text}
 
 Workshop tip: {tip_headline}
 
-— Spock
+{SIGNOFF_TEXT}
 
-Anything off — URL broken, voting jammed, items off-pitch, lands in spam — reply here. The system tunes.
+Anything off — reply directly.
 """
 
+    # HTML body
     items_html = "".join(f"<li style=\"margin-bottom: 6px;\">{h}</li>" for h in headlines)
 
     if is_first_send:
-        intro_html = f"""<p style="font-size: 17px;">{name},</p>
-
-<p>The Chronos Dispatch lives at <a href="{url}" style="color: #6B1F2B;">{url}</a>.</p>
-
-<p>That URL is yours — the <code style="background: #EDE5D2; padding: 2px 6px; border-radius: 2px;">?p={code}</code> suffix routes your votes and commentary to you in the feedback database. Inside: vote 👍/👎 on each item with a line on what worked or didn't; submit a Find (one URL + your take, lands in tomorrow's edition); expand "Spock's take" for the longitudinal read on any item.</p>
-
-<p>The bar is the test from Issue 008: <em style="color: #6B1F2B;">"Would not have seen this otherwise."</em> 25+ sources scanned daily — newsletters, research firms, world's-best-thinkers letters (Buffett, Marks, Klarman, Ferguson, Meeker). Six items clear.</p>
-
-<hr style="border: none; border-top: 1px solid #BFB3A0; margin: 28px 0;">
-"""
+        intro_html = f'<p style="font-size: 17px;">{name},</p>\n\n' + WELCOME_HTML
     else:
-        intro_html = f"<p style=\"font-size: 17px;\">{name},</p>"
+        intro_html = f'<p style="font-size: 17px;">{name},</p>'
 
     html_body = f"""<!DOCTYPE html>
 <html><body style="font-family: Georgia, serif; max-width: 640px; margin: 0 auto; padding: 28px; color: #14110E; line-height: 1.65; background: #F6F1E7;">
@@ -109,17 +122,19 @@ Anything off — URL broken, voting jammed, items off-pitch, lands in spam — r
 
 <p style="font-style: italic; color: #14110E; padding: 16px 20px; background: #EDE5D2; border-left: 3px solid #6B1F2B; margin: 20px 0;">"{editors_note}"</p>
 
+<p><strong>Six items today:</strong></p>
 <ol style="padding-left: 20px;">{items_html}</ol>
 
 <p><strong>Workshop tip:</strong> {tip_headline}</p>
 
-<p style="margin-top: 32px;">— Spock</p>
+{SIGNOFF_HTML}
 
-<p style="color: #6C604F; font-size: 12px; font-style: italic; margin-top: 24px;">Anything off — URL broken, voting jammed, items off-pitch, lands in spam — reply here. The system tunes.</p>
+<p style="color: #6C604F; font-size: 12px; font-style: italic; margin-top: 24px;">Anything off — reply directly.</p>
 
 </body></html>"""
 
     return subject, text_body, html_body
+
 
 print(f"Issue {issue_num} · {date_str}")
 print(f"Sending to {len(partners)} partner(s)...")
