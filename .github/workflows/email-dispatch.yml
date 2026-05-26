@@ -42,6 +42,10 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Validate every source URL in index.html
+        if: steps.gate.outputs.send == 'true'
+        run: python .github/scripts/validate_urls.py
+
       - name: Send dispatch emails
         if: steps.gate.outputs.send == 'true'
         env:

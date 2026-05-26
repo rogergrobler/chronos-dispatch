@@ -46,54 +46,6 @@ base_url = os.environ["DISPATCH_BASE_URL"].rstrip("/")
 
 is_first_send = (only_to is not None and only_to != "") or int(issue_num) <= 10
 
-INTRO_TEXT = """This is the first daily edition of The Chronos Dispatch.
-
-Every weekday at ~06:00 SAST you'll get this email with a link to that day's
-edition. Your URL has a "?p=" parameter unique to you — when you vote or
-comment on items, the feedback attributes to you in the Notion feedback
-database automatically. Each partner has their own code.
-
-THREE ACTIONS YOU CAN TAKE INSIDE THE DISPATCH
-
-  1. Vote thumbs-up / thumbs-down on each item with optional commentary.
-     Spock learns from this and tunes future editions.
-  2. Submit a Find — paste a URL with your take. It appears in tomorrow's
-     edition tagged "Submitted by [your name]".
-  3. Expand "Spock's take" on any item for deeper analysis and longitudinal
-     threads back to prior editions.
-
-WHY THIS WORKS
-
-Spock harvests 25+ sources every morning (newsletters, research firms, the
-world's-best-thinkers letters from Buffett / Ackman / Klarman / Howard Marks
-/ Ferguson / Meeker) and scores each candidate item against five dimensions:
-portfolio relevance, thesis fit, operator lessons, deal craft, novelty.
-
-The bar Spock measures against is: "Would I have seen this otherwise? Did it
-sharpen my thinking?" If an item doesn't pass that test, it shouldn't be here.
-
-═══════════════════════════════════════════════════════════════════════════
-
-"""
-
-INTRO_HTML = """<h3 style="color: #6B1F2B; font-family: 'Playfair Display', Georgia, serif; margin-top: 28px;">Welcome to The Chronos Dispatch</h3>
-<p>Every weekday at ~06:00 SAST you'll get this email with a link to that day's edition. Your URL has a <code style="background: #EDE5D2; padding: 2px 6px; border-radius: 2px;">?p=</code> parameter unique to you — when you vote or comment on items, the feedback attributes to you in the Notion feedback database automatically. Each partner has their own code.</p>
-
-<h3 style="color: #6B1F2B; font-family: 'Playfair Display', Georgia, serif;">Three actions inside the dispatch</h3>
-<ol>
-<li><strong>Vote 👍 / 👎</strong> on each item with optional commentary. Spock learns from this and tunes future editions.</li>
-<li><strong>Submit a Find</strong> — paste a URL with your take. It appears in tomorrow's edition tagged "Submitted by [your name]".</li>
-<li><strong>Expand "Spock's take"</strong> on any item for deeper analysis and longitudinal threads back to prior editions.</li>
-</ol>
-
-<h3 style="color: #6B1F2B; font-family: 'Playfair Display', Georgia, serif;">Why this works</h3>
-<p>Spock harvests 25+ sources every morning (newsletters, research firms, world's-best-thinkers letters from Buffett / Ackman / Klarman / Howard Marks / Ferguson / Meeker) and scores each candidate item against five dimensions: portfolio relevance, thesis fit, operator lessons, deal craft, novelty.</p>
-
-<p>The bar Spock measures against is: <em style="color: #6B1F2B;">"Would I have seen this otherwise? Did it sharpen my thinking?"</em> If an item doesn't pass that test, it shouldn't be here.</p>
-
-<hr style="border: none; border-top: 1px solid #BFB3A0; margin: 36px 0;">
-"""
-
 def build_email(code, name, email):
     url = f"{base_url}/?p={code}"
     subject = f"The Chronos Dispatch · Issue {int(issue_num):03d} · {date_str}"
@@ -102,51 +54,69 @@ def build_email(code, name, email):
 
     items_text = "\n".join(f"  {i+1}. {h}" for i, h in enumerate(headlines))
 
-    text_body = f"""{name},
+    if is_first_send:
+        intro_text = f"""{name},
+
+The Chronos Dispatch lives at {url}.
+
+That URL is yours — the ?p={code} suffix routes your votes and commentary to you in the feedback database. Inside: vote 👍/👎 on each item with a line on what worked or didn't; submit a Find (one URL + your take, lands in tomorrow's edition); expand "Spock's take" for the longitudinal read on any item.
+
+The bar is the test from Issue 008: "Would not have seen this otherwise." 25+ sources scanned daily — newsletters, research firms, world's-best-thinkers letters (Buffett, Marks, Klarman, Ferguson, Meeker). Six items clear.
 
 """
-    if is_first_send:
-        text_body += INTRO_TEXT
+    else:
+        intro_text = f"{name},\n\n"
 
-    text_body += f"""TODAY'S EDITION
+    text_body = intro_text + f"""ISSUE {int(issue_num):03d} · {date_str}
 
 {url}
 
 "{editors_note}"
 
-{len(headlines)} items cleared the bar:
 {items_text}
 
-Plus today's Workshop tip: {tip_headline}
+Workshop tip: {tip_headline}
 
-═══════════════════════════════════════════════════════════════════════════
+— Spock
 
-If anything's off — voting doesn't work, formatting wrong, items off-pitch,
-URL broken, email lands in spam — reply directly to this. The system tunes.
-
-— Spock @ Chronos
+Anything off — URL broken, voting jammed, items off-pitch, lands in spam — reply here. The system tunes.
 """
 
-    items_html = "".join(f"<li>{h}</li>" for h in headlines)
+    items_html = "".join(f"<li style=\"margin-bottom: 6px;\">{h}</li>" for h in headlines)
+
+    if is_first_send:
+        intro_html = f"""<p style="font-size: 17px;">{name},</p>
+
+<p>The Chronos Dispatch lives at <a href="{url}" style="color: #6B1F2B;">{url}</a>.</p>
+
+<p>That URL is yours — the <code style="background: #EDE5D2; padding: 2px 6px; border-radius: 2px;">?p={code}</code> suffix routes your votes and commentary to you in the feedback database. Inside: vote 👍/👎 on each item with a line on what worked or didn't; submit a Find (one URL + your take, lands in tomorrow's edition); expand "Spock's take" for the longitudinal read on any item.</p>
+
+<p>The bar is the test from Issue 008: <em style="color: #6B1F2B;">"Would not have seen this otherwise."</em> 25+ sources scanned daily — newsletters, research firms, world's-best-thinkers letters (Buffett, Marks, Klarman, Ferguson, Meeker). Six items clear.</p>
+
+<hr style="border: none; border-top: 1px solid #BFB3A0; margin: 28px 0;">
+"""
+    else:
+        intro_html = f"<p style=\"font-size: 17px;\">{name},</p>"
+
     html_body = f"""<!DOCTYPE html>
 <html><body style="font-family: Georgia, serif; max-width: 640px; margin: 0 auto; padding: 28px; color: #14110E; line-height: 1.65; background: #F6F1E7;">
-<p style="font-size: 17px;">{name},</p>
-"""
-    if is_first_send:
-        html_body += INTRO_HTML
 
-    html_body += f"""<p style="text-align: center; margin: 28px 0;"><a href="{url}" style="display: inline-block; background: #6B1F2B; color: #F6F1E7; padding: 14px 32px; text-decoration: none; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.14em; font-size: 13px;">OPEN ISSUE {int(issue_num):03d} →</a></p>
+{intro_html}
+
+<p style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #6B1F2B; text-transform: uppercase; margin-bottom: 4px;">Issue {int(issue_num):03d} · {date_str}</p>
+
+<p style="text-align: center; margin: 20px 0;"><a href="{url}" style="display: inline-block; background: #6B1F2B; color: #F6F1E7; padding: 14px 32px; text-decoration: none; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.14em; font-size: 13px;">OPEN ISSUE {int(issue_num):03d} →</a></p>
 
 <p style="font-style: italic; color: #14110E; padding: 16px 20px; background: #EDE5D2; border-left: 3px solid #6B1F2B; margin: 20px 0;">"{editors_note}"</p>
 
-<p><strong>{len(headlines)} items cleared the bar today:</strong></p>
-<ol>{items_html}</ol>
+<ol style="padding-left: 20px;">{items_html}</ol>
 
 <p><strong>Workshop tip:</strong> {tip_headline}</p>
 
-<p style="margin-top: 36px; color: #14110E;">— Spock @ Chronos</p>
+<p style="margin-top: 32px;">— Spock</p>
 
-<p style="color: #6C604F; font-size: 12px; font-style: italic; margin-top: 24px;">If anything's off — voting doesn't work, formatting wrong, items off-pitch, URL broken, email lands in spam — reply directly to this. The system tunes.</p>
+<p style="color: #6C604F; font-size: 12px; font-style: italic; margin-top: 24px;">Anything off — URL broken, voting jammed, items off-pitch, lands in spam — reply here. The system tunes.</p>
+
 </body></html>"""
 
     return subject, text_body, html_body
