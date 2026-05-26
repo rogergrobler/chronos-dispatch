@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths: ['index.html']
   workflow_dispatch:
+    inputs:
+      only_to:
+        description: 'Optional: send to only one partner code (rg / mj / wr / nk / is). Leave empty for all.'
+        required: false
+        default: ''
 
 jobs:
   send-emails:
@@ -14,29 +19,35 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Skip if not a real edition push
+      - name: Gate auto-runs to feat:Issue commits only
         id: gate
         run: |
-          msg=$(git log -1 --pretty=%s)
-          echo "Commit: $msg"
-          if [[ "$msg" == feat:\ Issue* ]] || [[ "$msg" == "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "send=true" >> $GITHUB_OUTPUT
+            echo "Manual trigger — proceeding"
           else
-            echo "send=false" >> $GITHUB_OUTPUT
+            msg=$(git log -1 --pretty=%s)
+            echo "Commit: $msg"
+            if [[ "$msg" == feat:\ Issue* ]]; then
+              echo "send=true" >> $GITHUB_OUTPUT
+            else
+              echo "send=false" >> $GITHUB_OUTPUT
+              echo "Skipping — not a feat:Issue commit"
+            fi
           fi
 
       - name: Set up Python
-        if: steps.gate.outputs.send == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.gate.outputs.send == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Send dispatch emails
-        if: steps.gate.outputs.send == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.gate.outputs.send == 'true'
         env:
           SPOCK_GMAIL_APP_PASSWORD: ${{ secrets.SPOCK_GMAIL_APP_PASSWORD }}
           PARTNER_EMAILS_JSON: ${{ secrets.PARTNER_EMAILS_JSON }}
           SPOCK_EMAIL: spock@ccap.ai
           DISPATCH_BASE_URL: https://rogergrobler.github.io/chronos-dispatch
-          DRY_RUN: ${{ vars.DRY_RUN }}
+          ONLY_TO: ${{ github.event.inputs.only_to }}
         run: python .github/scripts/send_dispatch.py
