@@ -1,0 +1,42 @@
+name: Email Dispatch to Partners
+
+on:
+  push:
+    branches: [main]
+    paths: ['index.html']
+  workflow_dispatch:
+
+jobs:
+  send-emails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Skip if not a real edition push
+        id: gate
+        run: |
+          msg=$(git log -1 --pretty=%s)
+          echo "Commit: $msg"
+          if [[ "$msg" == feat:\ Issue* ]] || [[ "$msg" == "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "send=true" >> $GITHUB_OUTPUT
+          else
+            echo "send=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up Python
+        if: steps.gate.outputs.send == 'true' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send dispatch emails
+        if: steps.gate.outputs.send == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          SPOCK_GMAIL_APP_PASSWORD: ${{ secrets.SPOCK_GMAIL_APP_PASSWORD }}
+          PARTNER_EMAILS_JSON: ${{ secrets.PARTNER_EMAILS_JSON }}
+          SPOCK_EMAIL: spock@ccap.ai
+          DISPATCH_BASE_URL: https://rogergrobler.github.io/chronos-dispatch
+          DRY_RUN: ${{ vars.DRY_RUN }}
+        run: python .github/scripts/send_dispatch.py
