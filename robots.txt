@@ -1,0 +1,5 @@
+# Chronos Chronicle — partner-confidential. Not for indexing.
+# Distribution is by email to named partners; this host is the delivery
+# surface, not a public publication.
+User-agent: *
+Disallow: /
