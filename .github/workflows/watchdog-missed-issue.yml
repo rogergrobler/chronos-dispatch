@@ -11,6 +11,9 @@
 # There is no cron in email-dispatch.yml. If step 1 is silent, nothing
 # else runs. This watchdog is the missing alarm: 04:15 UTC weekdays,
 # after the historical ~03:43 UTC fire.
+#
+# Not the publisher: Spock Grok Bot / CoS weekday 07:00 SAST brief
+# (Notion CoS GB-1/GB-2). That is a different agent and a later clock.
 name: Watchdog — missed weekday issue
 
 on:
