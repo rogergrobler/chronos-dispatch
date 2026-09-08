@@ -1,0 +1,38 @@
+# Watchdog for Chronos Chronicle scheduled fire.
+#
+# Pipeline (this repo is the *tail*, not the generator):
+#   1. Claude Cowork routine, Mon–Fri 05:30 SAST / 03:30 UTC
+#      (Notion: "Spock Dispatch — Config & Secrets")
+#      harvests sources → writes HTML → git push as Spock <spock@ccap.ai>
+#   2. GitHub Pages deploys main (currently public github.io — no Basic Auth)
+#   3. email-dispatch.yml sends partner mail IFF the push is `feat: Issue*`
+#      and touches index.html
+#
+# There is no cron in email-dispatch.yml. If step 1 is silent, nothing
+# else runs. This watchdog is the missing alarm: 04:15 UTC weekdays,
+# after the historical ~03:43 UTC fire.
+name: Watchdog — missed weekday issue
+
+on:
+  schedule:
+    - cron: "15 4 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Expect today's YYYY-MM-DD.html
+        id: fire
+        run: python .github/scripts/check_weekday_issue.py
+
+      - name: Alert Roger (not partners)
+        if: failure() && steps.fire.conclusion == 'failure'
+        env:
+          SPOCK_GMAIL_APP_PASSWORD: ${{ secrets.SPOCK_GMAIL_APP_PASSWORD }}
+          SPOCK_EMAIL: spock@ccap.ai
+          WATCHDOG_TO: roger@ccap.ai
+          WATCHDOG_REASON: weekday YYYY-MM-DD.html missing after 04:15 UTC
+        run: python .github/scripts/alert_missed_issue.py

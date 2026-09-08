@@ -42,7 +42,9 @@ if not partners:
 
 app_password = os.environ["SPOCK_GMAIL_APP_PASSWORD"].replace(" ", "")
 spock_email = os.environ["SPOCK_EMAIL"]
-base_url = os.environ["DISPATCH_BASE_URL"].rstrip("/")
+base_url = (
+    os.environ.get("DISPATCH_BASE_URL") or "https://rogergrobler.github.io/chronos-dispatch"
+).rstrip("/")
 
 is_first_send = (only_to is not None and only_to != "") or int(issue_num) <= 10
 

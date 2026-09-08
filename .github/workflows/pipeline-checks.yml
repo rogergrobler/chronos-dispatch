@@ -1,0 +1,28 @@
+# Lightweight checks so a PR can go green without waiting for a live fire.
+name: Pipeline checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Known Issue 070 date must pass
+        run: python .github/scripts/check_weekday_issue.py --date 2026-08-24
+
+      - name: Weekend must skip
+        run: python .github/scripts/check_weekday_issue.py --date 2026-09-06
+
+      - name: Missing weekday must fail
+        run: |
+          set +e
+          python .github/scripts/check_weekday_issue.py --date 2026-09-08
+          test $? -eq 1
+
+      - name: noindex + robots.txt present
+        run: python .github/scripts/check_privacy_headers.py
