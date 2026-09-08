@@ -1,3 +1,7 @@
+# Partner email tail of the Chronicle pipeline. There is no cron here.
+# Generation is a Claude Cowork Mon–Fri 05:30 SAST routine that git-pushes
+# a feat: Issue commit; this workflow then SMTP-sends. See
+# watchdog-missed-issue.yml for the alarm when that push never arrives.
 name: Email Dispatch to Partners
 
 on:
@@ -46,12 +50,16 @@ jobs:
         if: steps.gate.outputs.send == 'true'
         run: python .github/scripts/validate_urls.py
 
+      - name: Confirm noindex + robots.txt (not a substitute for Basic Auth)
+        if: steps.gate.outputs.send == 'true'
+        run: python .github/scripts/check_privacy_headers.py
+
       - name: Send dispatch emails
         if: steps.gate.outputs.send == 'true'
         env:
           SPOCK_GMAIL_APP_PASSWORD: ${{ secrets.SPOCK_GMAIL_APP_PASSWORD }}
           PARTNER_EMAILS_JSON: ${{ secrets.PARTNER_EMAILS_JSON }}
           SPOCK_EMAIL: spock@ccap.ai
-          DISPATCH_BASE_URL: https://rogergrobler.github.io/chronos-dispatch
+          DISPATCH_BASE_URL: ${{ vars.DISPATCH_BASE_URL }}
           ONLY_TO: ${{ github.event.inputs.only_to }}
         run: python .github/scripts/send_dispatch.py

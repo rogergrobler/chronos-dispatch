@@ -1,0 +1,12 @@
+# Deploy: wrangler deploy
+# Secrets: wrangler secret put BASIC_AUTH_USER
+#          wrangler secret put BASIC_AUTH_PASS
+# Then attach a custom domain in the Cloudflare dashboard and set the
+# GitHub Actions *variable* DISPATCH_BASE_URL to https://<that-domain>
+# so partner emails stop pointing at public github.io.
+name = "chronos-chronicle-auth"
+main = "chronicle-auth-worker.js"
+compatibility_date = "2026-09-08"
+
+[vars]
+ORIGIN = "https://rogergrobler.github.io/chronos-dispatch"
